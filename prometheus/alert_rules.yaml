@@ -1,0 +1,29 @@
+groups:
+  - name: vogue.rules
+    rules:
+      - alert: VogueDown
+        expr: vogue_probe_success == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Vogue.com is down"
+          description: "Probe for vogue.com failed for more than 2 minutes."
+
+      - alert: VogueHighLatency
+        expr: vogue_probe_duration_seconds > 1.5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Vogue.com latency high"
+          description: "Response time > 1.5s for 5 minutes."
+
+      - alert: SSLCertExpiringSoon
+        expr: (vogue_ssl_cert_expiry_timestamp - time()) < 86400 * 7
+        for: 0m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Vogue SSL certificate expiring soon"
+          description: "SSL cert for vogue.com expires within 7 days."

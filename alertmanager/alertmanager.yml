@@ -1,0 +1,10 @@
+route:
+  receiver: 'email-only'
+  group_interval: 5m
+
+receivers:
+  - name: 'email-only'
+    email_configs:
+      - to: 'angiemorerarobinson@gmail.com'
+        from: 'alertmanager@example.com'
+        send_resolved: true
